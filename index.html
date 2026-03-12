@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="mainHtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJCM | Association des Jeunes Citoyens</title>
+    <style>
+        /* إعدادات الألوان المتطورة */
+        :root {
+            --primary: #8b0000; /* أحمر AJCM */
+            --secondary: #006233; /* أخضر مغربي */
+            --gold: #c5a059;
+            --light-bg: #fdfae6;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        * { box-sizing: border-box; transition: 0.3s ease-in-out; }
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            margin: 0; background: var(--light-bg); color: #2d3436; 
+            scroll-behavior: smooth;
+        }
+
+        /* نظام التبديل اللغوي */
+        [lang="fr"] body, [lang="en"] body { direction: ltr; text-align: left; }
+
+        /* الهيدر */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 8%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .logo-wrap { display: flex; align-items: center; gap: 15px; }
+        .logo-img { 
+            width: 65px; height: 65px; border-radius: 50%; 
+            border: 3px solid var(--secondary);
+            background: #fff;
+            object-fit: contain;
+        }
+
+        .lang-switcher { display: flex; gap: 8px; }
+        .lang-btn {
+            border: 1.5px solid var(--primary); background: transparent;
+            padding: 6px 15px; border-radius: 20px; cursor: pointer;
+            font-size: 0.85rem; font-weight: bold; color: var(--primary);
+        }
+        .lang-btn.active { background: var(--primary); color: white; }
+
+        /* الأقسام */
+        section { padding: 80px 10%; }
+        .hero-title { text-align: center; margin-bottom: 50px; }
+        .hero-title h2 { font-size: 2.8rem; color: var(--primary); margin: 0; }
+        .divider { width: 80px; height: 4px; background: var(--secondary); margin: 15px auto; border-radius: 2px; }
+
+        /* بطاقة التسجيل الاحترافية */
+        .glass-card {
+            background: var(--white);
+            border-radius: 30px;
+            display: grid; grid-template-columns: 1.2fr 0.8fr;
+            overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+            max-width: 1100px; margin: auto;
+        }
+
+        .form-area { padding: 50px; }
+        .info-area { 
+            background: linear-gradient(135deg, var(--primary), #5a0000); 
+            color: white; padding: 50px; display: flex; flex-direction: column; justify-content: center;
+        }
+
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary); }
+        input, select {
+            width: 100%; padding: 14px; border: 2px solid #eee; 
+            border-radius: 12px; font-size: 1rem; background: #fafafa;
+        }
+        input:focus { border-color: var(--secondary); outline: none; background: #fff; }
+
+        .btn-grad {
+            background: var(--secondary); color: white; border: none;
+            padding: 18px; border-radius: 12px; width: 100%;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,98,51,0.2);
+        }
+        .btn-grad:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,98,51,0.3); }
+
+        /* الأرشيف */
+        .archive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .archive-card {
+            background: white; border-radius: 20px; padding: 25px;
+            border-left: 6px solid var(--secondary); box-shadow: var(--shadow);
+        }
+
+        footer { background: #121212; color: white; padding: 60px 10% 30px; text-align: center; }
+
+        @media (max-width: 900px) {
+            .glass-card { grid-template-columns: 1fr; }
+            header { flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-wrap">
+        <img src="1000379452.jpg" alt="AJCM Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/100?text=AJCM'">
+        <div class="logo-text">
+            <h1 style="margin:0; font-size: 1.6rem; color: var(--primary); letter-spacing: 1px;">AJCM</h1>
+            <small style="font-weight: bold; color: var(--secondary);">PAR LA JEUNESSE ET POUR LA JEUNESSE</small>
+        </div>
+    </div>
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLanguage('ar')">العربية</button>
+        <button class="lang-btn" onclick="setLanguage('fr')">Français</button>
+        <button class="lang-btn" onclick="setLanguage('en')">English</button>
+    </div>
+</header>
+
+<section id="about">
+    <div class="hero-title">
+        <h2 id="t-about">عن الجمعية</h2>
+        <div class="divider"></div>
+        <p id="t-desc" style="max-width: 700px; margin: 20px auto; font-size: 1.1rem; line-height: 1.7;">
+            نحن جمعية الشباب المواطنين، منصة مغربية رائدة لتمكين القادة الشباب وتعزيز الحوار الدبلوماسي العالمي.
+        </p>
+    </div>
+</section>
+
+<section id="registration" style="background: #f4f4f4;">
+    <div class="glass-card">
+        <div class="form-area">
+            <h3 id="t-form-h">نموذج حجز الفعالية</h3>
+            <form>
+                <div class="input-group">
+                    <label id="t-l-event">اختر الفعالية</label>
+                    <select required>
+                        <option id="t-o-def">-- اختر من القائمة --</option>
+                        <option>Maroc–Norvège (Mars 2026)</option>
+                        <option>Active Citizenship Forum</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label id="t-l-name">الاسم الكامل</label>
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+                <div class="input-group">
+                    <label id="t-l-phone">رقم الهاتف</label>
+                    <input type="tel" placeholder="+212 6..." required>
+                </div>
+                <div class="input-group">
+                    <label id="t-l-id">رقم العضوية (Member ID)</label>
+                    <input type="text" placeholder="AJCM-0000" required>
+                </div>
+                <button type="submit" class="btn-grad" id="t-btn">تأكيد التسجيل</button>
+            </form>
+        </div>
+        <div class="info-area">
+            <h3 id="t-side-h">مزايا العضوية</h3>
+            <ul id="t-side-l" style="line-height: 2.2; font-size: 1.05rem;">
+                <li>المشاركة في وفود دولية.</li>
+                <li>حضور ندوات الدبلوماسية الموازية.</li>
+                <li>التواصل مع خبراء السياسات العامة.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section id="archive">
+    <div class="hero-title">
+        <h2 id="t-arch-h">أرشيف الفعاليات</h2>
+        <div class="divider"></div>
+    </div>
+    <div class="archive-grid">
+        <div class="archive-card">
+            <h4 style="color:var(--primary)">Maroc–Norvège 2026</h4>
+            <p id="t-arc1">تحليل العلاقات الدبلوماسية وآفاق التعاون الشبابي بين الرباط وأوسلو.</p>
+        </div>
+        <div class="archive-item archive-card">
+            <h4 style="color:var(--primary)">Youth Summit</h4>
+            <p id="t-arc2">قمة الشباب للمواطنة: نحو دور ريادي في المجتمع المدني.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>Email: associationdesjeunescitoyensma@gmail.com</p>
+    <p>Tel: +212-697980554</p>
+    <div style="margin-top:20px; opacity:0.6; font-size: 0.8rem;">
+        © 2026 AJCM - Association des Jeunes Citoyens. All Rights Reserved.
+    </div>
+</footer>
+
+<script>
+    const dictionary = {
+        ar: {
+            dir: "rtl", about: "عن الجمعية", desc: "نحن جمعية الشباب المواطنين، منصة مغربية رائدة لتمكين القادة الشباب وتعزيز الحوار الدبلوماسي العالمي.",
+            formH: "نموذج حجز الفعالية", lEvent: "اختر الفعالية", oDef: "-- اختر من القائمة --",
+            lName: "الاسم الكامل", lPhone: "رقم الهاتف", lId: "رقم العضوية (Member ID)",
+            btn: "تأكيد التسجيل", sideH: "مزايا العضوية",
+            sideL: "<li>المشاركة في وفود دولية.</li><li>حضور ندوات الدبلوماسية الموازية.</li><li>التواصل مع خبراء السياسات العامة.</li>",
+            archH: "أرشيف الفعاليات", arc1: "تحليل العلاقات الدبلوماسية وآفاق التعاون الشبابي بين الرباط وأوسلو.",
+            arc2: "قمة الشباب للمواطنة: نحو دور ريادي في المجتمع المدني."
+        },
+        fr: {
+            dir: "ltr", about: "À propos", desc: "Nous sommes l'Association des Jeunes Citoyens, une plateforme marocaine leader pour l'autonomisation des jeunes leaders.",
+            formH: "Inscription à l'événement", lEvent: "Choisir l'événement", oDef: "-- Choisir --",
+            lName: "Nom Complet", lPhone: "Téléphone", lId: "ID Membre",
+            btn: "Confirmer l'inscription", sideH: "Avantages",
+            sideL: "<li>Participation aux délégations.</li><li>Séminaires diplomatiques.</li><li>Networking stratégique.</li>",
+            archH: "Archives", arc1: "Analyse des relations diplomatiques entre Rabat et Oslo.",
+            arc2: "Sommet de la jeunesse pour la citoyenneté active."
+        },
+        en: {
+            dir: "ltr", about: "About Us", desc: "We are the Association of Young Citizens, a leading Moroccan platform for empowering youth leaders.",
+            formH: "Event Registration", lEvent: "Select Event", oDef: "-- Select --",
+            lName: "Full Name", lPhone: "Phone Number", lId: "Member ID",
+            btn: "Confirm Registration", sideH: "Benefits",
+            sideL: "<li>International delegations.</li><li>Diplomacy seminars.</li><li>Networking with experts.</li>",
+            archH: "Archives", arc1: "Diplomatic relations analysis between Rabat and Oslo.",
+            arc2: "Youth Summit for active citizenship."
+        }
+    };
+
+    function setLanguage(lang) {
+        const d = dictionary[lang];
+        document.getElementById('mainHtml').dir = d.dir;
+        document.getElementById('t-about').innerText = d.about;
+        document.getElementById('t-desc').innerText = d.desc;
+        document.getElementById('t-form-h').innerText = d.formH;
+        document.getElementById('t-l-event').innerText = d.lEvent;
+        document.getElementById('t-o-def').innerText = d.oDef;
+        document.getElementById('t-l-name').innerText = d.lName;
+        document.getElementById('t-l-phone').innerText = d.lPhone;
+        document.getElementById('t-l-id').innerText = d.lId;
+        document.getElementById('t-btn').innerText = d.btn;
+        document.getElementById('t-side-h').innerText = d.sideH;
+        document.getElementById('t-side-l').innerHTML = d.sideL;
+        document.getElementById('t-arch-h').innerText = d.archH;
+        document.getElementById('t-arc1').innerText = d.arc1;
+        document.getElementById('t-arc2').innerText = d.arc2;
+
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
