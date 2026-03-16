@@ -1,84 +1,275 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl" id="mainHtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AJCM Association</title>
+    <title>AJCM | Association des Jeunes Citoyens</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
+        :root {
+            --primary: #8b0000;
+            --secondary: #006233;
+            --dark: #1a1a1b;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --accent: #d4af37;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cairo', 'Montserrat', sans-serif; background: var(--light); color: var(--dark); overflow-x: hidden; scroll-behavior: smooth; }
+
+        [lang="fr"] body, [lang="en"] body { direction: ltr; font-family: 'Montserrat', sans-serif; }
+
         header {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
+            background: rgba(255,255,255,0.98);
+            height: 90px; padding: 0 8%;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 2000;
         }
-        .language-switcher {
-            float: right;
-            margin-top: -40px;
+
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-img { 
+            width: 70px; height: 70px; object-fit: contain; 
+            border-radius: 50%; border: 2px solid var(--secondary);
+            padding: 3px; background: #fff;
         }
-        main {
-            padding: 20px;
+
+        .nav-links { display: flex; align-items: center; gap: 25px; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 0.95rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+
+        .lang-picker { display: flex; gap: 5px; background: #eee; padding: 4px; border-radius: 30px; }
+        .lang-btn { 
+            border: none; background: none; padding: 6px 15px; border-radius: 20px; 
+            cursor: pointer; font-size: 0.75rem; font-weight: bold;
         }
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+        .lang-btn.active { background: var(--primary); color: white; }
+
+        .hero {
+            background: linear-gradient(135deg, #fff 50%, #f1f1f1 100%);
+            padding: 100px 8%; text-align: center; border-bottom: 5px solid var(--primary);
         }
-        .registration-form {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .hero h1 { font-size: 3rem; color: var(--primary); margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; color: #555; max-width: 800px; margin: auto; line-height: 1.8; }
+
+        section { padding: 100px 8%; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.2rem; color: var(--secondary); position: relative; display: inline-block; padding-bottom: 15px; }
+        .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 25%; width: 50%; height: 4px; background: var(--primary); border-radius: 2px; }
+
+        .registration-box {
+            max-width: 1100px; margin: auto; background: var(--white);
+            border-radius: 25px; display: grid; grid-template-columns: 1fr 1fr;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08); overflow: hidden;
+        }
+
+        .form-side { padding: 60px; }
+        .info-side { background: var(--primary); color: var(--white); padding: 60px; display: flex; flex-direction: column; justify-content: center; }
+
+        .form-group { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 10px; font-weight: bold; color: var(--primary); font-size: 0.9rem; }
+        input { 
+            width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 12px; 
+            background: #fafafa; font-size: 1rem; transition: 0.3s;
+        }
+        input:focus { outline: none; border-color: var(--secondary); background: #fff; box-shadow: 0 0 10px rgba(0,98,51,0.1); }
+
+        .btn-submit { 
+            width: 100%; padding: 18px; background: var(--secondary); color: white; 
+            border: none; border-radius: 12px; font-size: 1.2rem; font-weight: bold; 
+            cursor: pointer; box-shadow: 0 10px 20px rgba(0,98,51,0.2);
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,98,51,0.3); }
+
+        .archive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .archive-card { 
+            background: white; border-radius: 20px; padding: 30px; 
+            border-top: 5px solid var(--accent); box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+            transition: 0.3s;
+        }
+        .archive-card:hover { transform: translateY(-10px); }
+        .archive-card h3 { color: var(--primary); margin-bottom: 15px; }
+        .archive-card p { font-size: 0.95rem; line-height: 1.7; color: #666; }
+
+        footer { background: var(--dark); color: white; padding: 80px 8% 40px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 50px; margin-bottom: 50px; }
+        .contact-box h3 { color: var(--accent); margin-bottom: 25px; }
+        .contact-item { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; opacity: 0.8; }
+
+        @media (max-width: 992px) {
+            .registration-box { grid-template-columns: 1fr; }
+            header { height: auto; padding: 20px; flex-direction: column; gap: 20px; }
+            .hero h1 { font-size: 2rem; }
         }
     </style>
-    <script>
-        function switchLanguage(lang) {
-            document.querySelector('html').setAttribute('lang', lang);
-            // Additional language support mechanisms can be added here.
-        }
-    </script>
 </head>
 <body>
-    <header>
-        <h1>AJCM Association</h1>
-        <div class="language-switcher">
-            <button onclick="switchLanguage('en')">EN</button>
-            <button onclick="switchLanguage('fr')">FR</button>
-            <button onclick="switchLanguage('ar')">AR</button>
+
+<header>
+    <div class="logo-container">
+        <img src="1000379452.jpg" alt="AJCM Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/70?text=AJCM'">
+        <div>
+            <h2 style="color: var(--primary); line-height: 1;">AJCM</h2>
+            <small id="t-slogan" style="color: var(--secondary); font-weight: bold;">PAR LA JEUNESSE ET POUR LA JEUNESSE</small>
         </div>
-    </header>
-    <main>
-        <section>
-            <h2>Welcome to the AJCM Association</h2>
-            <p>Your one-stop destination for events, archives, and resources.</p>
-        </section>
-        <section>
-            <h2>Event Registration</h2>
-            <form action="https://formspree.io/f/your-form-id" method="POST" class="registration-form">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required placeholder="Enter your name">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required placeholder="Enter your email">
-                <button type="submit">Register</button>
+    </div>
+    <nav class="nav-links">
+        <a href="#hero" id="m-home">الرئيسية</a>
+        <a href="#booking" id="m-join">تسجيل</a>
+        <a href="#archives" id="m-archive">الأرشيف</a>
+        <div class="lang-picker">
+            <button class="lang-btn active" onclick="changeLang('ar')">AR</button>
+            <button class="lang-btn" onclick="changeLang('fr')">FR</button>
+            <button class="lang-btn" onclick="changeLang('en')">EN</button>
+        </div>
+    </nav>
+</header>
+
+<section class="hero" id="hero">
+    <h1 id="t-hero-h">جمعية الشباب المواطنين</h1>
+    <p id="t-hero-p">منصة رائدة لتمكين الشباب المغربي، تعزيز الدبلوماسية الموازية، وبناء جسور التواصل بين الثقافات. نحن نصنع قادة الغد اليوم.</p>
+</section>
+
+<section id="booking">
+    <div class="section-header">
+        <h2 id="t-reg-h">التسجيل في الفعاليات</h2>
+    </div>
+    
+    <div class="registration-box">
+        <div class="form-side">
+            <form action="https://formspree.io/f/mnjgvglw" method="POST">
+                <div class="form-group">
+                    <label id="l-event">اسم الفعالية المراد حضورها</label>
+                    <input type="text" name="Event_Name" id="p-event" placeholder="أدخل اسم النشاط هنا" required>
+                </div>
+                <div class="form-group">
+                    <label id="l-name">الاسم الكامل</label>
+                    <input type="text" name="Full_Name" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <label id="l-id">رقم العضوية (Member ID)</label>
+                    <input type="text" name="Member_ID" placeholder="AJCM-0000" required>
+                </div>
+                <div class="form-group">
+                    <label id="l-phone">رقم الهاتف</label>
+                    <input type="tel" name="Phone_Number" placeholder="+212 6..." required>
+                </div>
+                <button type="submit" class="btn-submit" id="b-submit">تأكيد الحجز الآن</button>
             </form>
-        </section>
-        <section>
-            <h2>Archives</h2>
-            <p>Explore our archives for past events and publications.</p>
-            <a href="#">View Archives</a>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 AJCM Association. All rights reserved.</p>
-    </footer>
+        </div>
+        <div class="info-side">
+            <h3 id="t-side-h" style="margin-bottom: 20px; font-size: 1.5rem;">ملاحظات هامة</h3>
+            <ul id="t-side-l" style="line-height: 2; font-size: 1.1rem; padding-right: 20px;">
+                <li>التسجيل إلزامي لجميع الأعضاء.</li>
+                <li>يرجى إظهار رقم العضوية عند بوابة الدخول.</li>
+                <li>المقاعد محدودة حسب أولوية التسجيل.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section id="archives" style="background: #fff;">
+    <div class="section-header">
+        <h2 id="t-arch-h">أرشيف الفعاليات السابقة</h2>
+    </div>
+    <div class="archive-grid">
+        <div class="archive-card">
+            <h3 id="a1-h">Maroc–Norvège 2026</h3>
+            <p id="a1-p">ندوة دولية لمناقشة التعاون الشبابي والدبلوماسي بين المملكة المغربية ومملكة النرويج، بحضور شخصيات دبلوماسية.</p>
+        </div>
+        <div class="archive-card">
+            <h3 id="a2-h">Active Citizenship Forum</h3>
+            <p id="a2-p">ملتقى المواطنة الفاعلة لتعزيز دور الشباب في المجتمع المدني من خلال ورش عمل تطبيقية ومناظرات فكرية.</p>
+        </div>
+    </div>
+</section>
+
+<footer id="contact">
+    <div class="footer-grid">
+        <div class="contact-box">
+            <h3 id="f-contact-h">اتصل بنا</h3>
+            <div class="contact-item">📍 الرباط، المملكة المغربية</div>
+            <div class="contact-item">📞 +212-697980554</div>
+            <div class="contact-item">📧 associationdesjeunescitoyensma@gmail.com</div>
+        </div>
+        <div style="opacity: 0.6;">
+            <h3>AJCM</h3>
+            <p>Association des Jeunes Citoyens - Pour une jeunesse engagée et citoyenne.</p>
+        </div>
+    </div>
+    <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; font-size: 0.9rem;">
+        © 2026 AJCM. All Rights Reserved.
+    </div>
+</footer>
+
+<script>
+    const content = {
+        ar: {
+            dir: "rtl", slogan: "بالشباب ولأجل الشباب", home: "الرئيسية", join: "تسجيل", archive: "الأرشيف",
+            heroH: "جمعية الشباب المواطنين", heroP: "منصة رائدة لتمكين الشباب المغربي، تعزيز الدبلوماسية الموازية، وبناء جسور التواصل بين الثقافات.",
+            regH: "التسجيل في الفعاليات", lEvent: "اسم الفعالية المراد حضورها", pEvent: "أدخل اسم النشاط هنا",
+            lName: "الاسم الكامل", lId: "رقم العضوية (Member ID)", lPhone: "رقم الهاتف", bSubmit: "تأكيد الحجز الآن",
+            sideH: "ملاحظات هامة", sideL: "<li>التسجيل إلزامي لجميع الأعضاء.</li><li>يرجى إظهار رقم العضوية عند بوابة الدخول.</li><li>المقاعد محدودة حسب أولوية التسجيل.</li>",
+            archH: "أرشيف الفعاليات السابقة", a1H: "Maroc–Norvège 2026", a1P: "ندوة دولية لمناقشة التعاون الشبابي والدبلوماسي بين البلدين.",
+            a2H: "Active Citizenship Forum", a2P: "ملتقى المواطنة الفاعلة لتعزيز دور الشباب في المجتمع المدني.",
+            fContact: "اتصل بنا"
+        },
+        fr: {
+            dir: "ltr", slogan: "PAR LA JEUNESSE ET POUR LA JEUNESSE", home: "Accueil", join: "Inscription", archive: "Archives",
+            heroH: "Association des Jeunes Citoyens", heroP: "Une plateforme leader pour l'autonomisation de la jeunesse marocaine et la diplomatie parallèle.",
+            regH: "Inscription aux Événements", lEvent: "Nom de l'événement", pEvent: "Entrez le nom de l'activité",
+            lName: "Nom Complet", lId: "ID Membre", lPhone: "Numéro de téléphone", bSubmit: "Confirmer l'inscription",
+            sideH: "Notes Importantes", sideL: "<li>Inscription obligatoire.</li><li>Présentez votre ID à l'entrée.</li><li>Places limitées.</li>",
+            archH: "Archives des Événements", a1H: "Maroc–Norvège 2026", a1P: "Séminaire international sur la coopération diplomatique.",
+            a2H: "Forum Citoyenneté Active", a2P: "Ateliers sur le rôle des jeunes dans la société civile.",
+            fContact: "Contactez-nous"
+        },
+        en: {
+            dir: "ltr", slogan: "BY YOUTH AND FOR YOUTH", home: "Home", join: "Register", archive: "Archives",
+            heroH: "Association of Young Citizens", heroP: "A leading platform for empowering Moroccan youth and promoting parallel diplomacy.",
+            regH: "Event Registration", lEvent: "Event Name", pEvent: "Enter event name",
+            lName: "Full Name", lId: "Member ID", lPhone: "Phone Number", bSubmit: "Confirm Booking Now",
+            sideH: "Important Notes", sideL: "<li>Registration mandatory.</li><li>Show your ID at the gate.</li><li>Limited seats available.</li>",
+            archH: "Event Archives", a1H: "Maroc–Norvège 2026", a1P: "International seminar on diplomatic cooperation.",
+            a2H: "Active Citizenship Forum", a2P: "Workshops on the youth's role in civil society.",
+            fContact: "Contact Us"
+        }
+    };
+
+    function changeLang(lang) {
+        const d = content[lang];
+        document.getElementById('mainHtml').dir = d.dir;
+        document.getElementById('mainHtml').lang = lang;
+        
+        document.getElementById('t-slogan').innerText = d.slogan;
+        document.getElementById('m-home').innerText = d.home;
+        document.getElementById('m-join').innerText = d.join;
+        document.getElementById('m-archive').innerText = d.archive;
+        document.getElementById('t-hero-h').innerText = d.heroH;
+        document.getElementById('t-hero-p').innerText = d.heroP;
+        document.getElementById('t-reg-h').innerText = d.regH;
+        document.getElementById('l-event').innerText = d.lEvent;
+        document.getElementById('p-event').placeholder = d.pEvent;
+        document.getElementById('l-name').innerText = d.lName;
+        document.getElementById('l-id').innerText = d.lId;
+        document.getElementById('l-phone').innerText = d.lPhone;
+        document.getElementById('b-submit').innerText = d.bSubmit;
+        document.getElementById('t-side-h').innerText = d.sideH;
+        document.getElementById('t-side-l').innerHTML = d.sideL;
+        document.getElementById('t-arch-h').innerText = d.archH;
+        document.getElementById('a1-h').innerText = d.a1H;
+        document.getElementById('a1-p').innerText = d.a1P;
+        document.getElementById('a2-h').innerText = d.a2H;
+        document.getElementById('a2-p').innerText = d.a2P;
+        document.getElementById('f-contact-h').innerText = d.fContact;
+
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+    }
+</script>
+
 </body>
 </html>
